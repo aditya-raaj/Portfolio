@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aditya Raj</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #ffffff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e0e0e0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: #666;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #333;
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        /* Sections */
+        .section {
+            padding: 80px 0;
+            min-height: 10vh;
+        }
+
+        .section:last-of-type {
+            min-height: auto;
+            padding-bottom: 40px;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #333;
+            font-weight: 300;
+        }
+
+        /* Home Section */
+        .home {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        }
+
+        .home-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .home-text h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #333;
+            font-weight: 300;
+        }
+
+        .home-text h3 {
+            font-size: 1.5rem;
+            color: #666;
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        .home-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+
+        .profile-image {
+            text-align: center;
+        }
+
+        .profile-image img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #333;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-image img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Cards */
+        .card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .card-meta {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .company-logo {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            text-align: center;
+            padding: 2rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .skill-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        /* Project Links */
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .project-links a {
+            padding: 0.5rem 1rem;
+            background-color: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .project-links a:hover {
+            background-color: #555;
+        }
+
+        /* Certificate Link */
+        .cert-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.7rem 1.5rem;
+            background-color: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .cert-link:hover {
+            background-color: #555;
+        }
+
+        /* Contact */
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-links a {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background-color: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .contact-links a:hover {
+            background-color: #555;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .home-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .nav-menu {
+                gap: 1rem;
+            }
+
+            .home-text h1 {
+                font-size: 2rem;
+            }
+
+            .profile-image img {
+                width: 250px;
+                height: 250px;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <img src="logo.jpg" alt="Logo" class="logo">
+            <ul class="nav-menu">
+                <li><a href="#home">HOME</a></li>
+                <li><a href="#experience">EXPERIENCE</a></li>
+                <li><a href="#projects">PROJECTS</a></li>
+                <li><a href="#skills">SKILLS</a></li>
+                <li><a href="#certifications">CERTIFICATIONS</a></li>
+                <li><a href="#cocurricular">CO-CURRICULAR</a></li>
+                <li><a href="#contact">CONTACT</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="section home">
+        <div class="container">
+            <div class="home-content">
+                <div class="home-text">
+                    <h1>Aditya Raj</h1>
+                    <h3>AI-ML Engineer</h3>
+                    <p>Discovering AI with foundation in machine learning, deep learning, and computer vision. Currently pursuing studies in Convolutional Neural Networks and Transformers. Deploying the problems into models.</p>
+                    <p>Trying on developing solutions throughd practical project implementation. Committed to continuous learning.</p>
+                </div>
+                <div class="profile-image">
+                    <img src="home.jpg" alt="Profile Picture">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section">
+        <div class="container">
+            <h2>Experience</h2>
+            <div class="card">
+                <img src="pol.png" alt="Google Logo" class="company-logo"> 
+                <h3>Upcoming Data Scientist at Polaris Inc</h3> 
+                <div class="card-meta">Polaris Inc | Joining Year: 2026</div> 
+                <p>Scheduled to join Polaris's Data and Analytics team, focusing on applications of artificial intelligence and machine learning. Expecting to contribute to innovative AI solutions, collaborate with top-tier researchers and engineers, and advance cutting-edge technology in a fast-paced, global environment.</p>
+                <div class="project-links">
+                    <a href="https://www.polaris.com/en-us/" target="_blank">Link</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="cdpg.jpg" alt="IISc Logo" class="company-logo">
+                <h3>Industry Project Intern</h3>
+                <div class="card-meta">IISc's Data for Public Good | Duration: Nov 2024 - Feb 2025</div>
+                <p> Collaborated in a 4-member team with IISc’s CDPG to build an AI-based Ambulance Distribution System
+                    using IUDX traffic data, optimizing 45+ ambulance routes across Bangalore. Integrated features like ETA prediction ,heatmap-based accident analysis, and nearest vehicle detection
+                    using IUDX data in collaboration with IISc’s CDPG.</p>
+                <div class="project-links">
+                    <a href="https://dataforpublicgood.org.in/" target="_blank">Link</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <h2>Projects</h2>
+            <div class="card">
+                <h3>OCTVision: Retinal Disease Detection</h3>
+                <div class="card-meta">AI/ML Project | May 2025</div>
+                <p>Implemented transfer learning using MobileNetV3 and TensorFlow, training the model on 84K OCT scans for multi-class retinal disease classification with 97% validation accuracy. Deployed the model through a Flask API, enabling real-time predictions for four retinal disease classes with minimal preprocessing.</p>
+                <div class="project-links">
+                    <a href="https://github.com/aditya-raaj/OCTVision" target="_blank">GitHub Repository</a>
+                </div>
+            </div>
+
+
+
+            <div class="card">
+                <h3>Book Buddy: Hybrid Book Recommender</h3>
+                <div class="card-meta">AI/ML Project | Apr 2025</div>
+                <p>Developed a hybrid book recommendation system combining cosine similarity, collaborative filtering, and popularity-based models to provide personalized book suggestions. Deployed the system as a Flask-based web application with custom API routes for processing user input, generating real-time recommendations, and rendering book images, optimizing overall system performance.</p>
+                <div class="project-links">
+                    <a href="https://github.com/aditya-raaj/Book-Buddy" target="_blank">GitHub Repository</a>
+                    <a href="https://book-buddy-f0zu.onrender.com/" target="_blank">Live Demo</a>
+                </div>
+            </div>
+
+
+            <div class="card">
+                <h3>LifeLink: Ambulance Dispatch Optimization in Bangalore</h3>
+                <div class="card-meta">AI/ML Project | Nov 2024 – Feb 2025</div>
+                <p>Designed a real-time ambulance dispatch model leveraging KNN, K-Means, and Dijkstra’s algorithm, achieving an 88% improvement in allocation efficiency. Developed an interactive dashboard using Streamlit and Folium to track over 45 ambulances, routes, and estimated arrival times (ETAs), providing real-time data for optimized response times.</p>
+                <div class="project-links">
+                    <a href="https://github.com/aditya-raaj/LifeLink" target="_blank">GitHub Repository</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Quantum Fit: AI-Powered Fitness Planner</h3>
+                <div class="card-meta">AI/ML Project | Dec 2023 – Feb 2024</div>
+                <p>Developed a personalized fitness and nutrition planner using Google Gemini AI, generating customized workout plans and meal suggestions based on user inputs. Leveraged Streamlit for seamless app deployment, integrating Plotly and Matplotlib for interactive data visualization of workout routines and macronutrient breakdowns.</p>
+                <div class="project-links">
+                    <a href="https://github.com/aditya-raaj/QuantumFit" target="_blank">GitHub Repository</a>
+                    <a href="https://quantum-fit.streamlit.app/" target="_blank">Live Demo</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <div class="container">
+            <h2>Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h4>Machine Learning</h4>
+                    <p>Learning algorithms, data preprocessing, feature engineering, and model evaluation techniques.</p>
+                </div>
+                <div class="skill-card">
+                    <h4>Deep Learning</h4>
+                    <p>Neural networks, CNNs, RNNs, transfer learning, model tuning, and optimization.</p>
+                </div>
+                <div class="skill-card">
+                    <h4>Data Analysis</h4>
+                    <p>Exploratory data analysis (EDA), statistical analysis, hypothesis testing, and data visualization using tools like Pandas, NumPy, and Matplotlib.</p>
+                </div>
+                <div class="skill-card">
+                    <h4>Computer Vision</h4>
+                    <p>Image processing, object detection, semantic segmentation, and facial recognition using OpenCV, TensorFlow, and PyTorch.</p>
+                </div>
+                <div class="skill-card">
+                    <h4>Natural Language Processing (NLP)</h4>
+                    <p>Text processing, sentiment analysis, machine translation, and named entity recognition (NER) with libraries such as NLTK, SpaCy, and Hugging Face Transformers.</p>
+                </div>
+                <div class="skill-card">
+                    <h4>Cloud Computing</h4>
+                    <p>Cloud deployment, serverless architectures, and experience with AWS, GCP, and Azure for model deployment and scaling.</p>
+                </div>
+                <div class="skill-card">
+                    <h4>Flask & Streamlit</h4>
+                    <p>Web app development, API integration, and real-time data visualization using Flask for backend and Streamlit for UI.</p>
+                </div>
+                <div class="skill-card">
+                    <h4>Version Control (Git)</h4>
+                    <p>Proficient in Git for version control, collaboration, and code management using GitHub, GitLab, and Bitbucket.</p>
+                </div>
+                <div class="skill-card">
+                    <h4>SQL & NoSQL Databases</h4>
+                    <p>Experience with relational (SQL) and non-relational (NoSQL) databases like MySQL, PostgreSQL, MongoDB, and Firebase for data storage and management.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="section">
+        <div class="container">
+            <h2>Certifications</h2>
+            <div class="card">
+                <img src="nvidia.png" alt="Google Logo" class="company-logo">
+                <h3>Getting Started with Deep Learning</h3>
+                <div class="card-meta">NVIDIA | 16 April 2025</div>
+                <p>Successfully completed comprehensive deep learning certification program covering advanced neural network architectures, GPU acceleration, and practical implementation of deep learning solutions. Demonstrated proficiency in NVIDIA's deep learning frameworks and tools.</p>
+                <a href="https://learn.nvidia.com/certificates?id=nvYG6z7TRgS5fqZgfK0Qew" target="_blank" class="cert-link">View Certificate</a>
+            </div>
+            <div class="card">
+                <img src="course.png" alt="Google Logo" class="company-logo">
+                <h3>Machine Learning Specialization</h3>
+                <div class="card-meta">DeepLearning.AI & Stanford University | Completed by: January 3, 2025</div>
+                <p>Successfully completed the Machine Learning Specialization by Stanford University and DeepLearning.AI, covering supervised learning (linear regression, logistic regression, neural networks), unsupervised learning (clustering, anomaly detection), recommender systems, and reinforcement learning. Gained hands-on experience in building and deploying machine learning models using tools like NumPy, scikit-learn, and TensorFlow.</p>
+                <a href="https://www.coursera.org/account/accomplishments/specialization/3MGTPD83K9B2" target="_blank" class="cert-link">View Certificate</a>
+            </div>
+
+        </div>
+    </section>
+    
+
+    <!-- Co-curricular Section -->
+    <section id="cocurricular" class="section">
+        <div class="container">
+            <h2>Co-curricular Activities</h2>
+            <div class="card">
+                <img src="baseball.jpeg" alt="Baseball Tournament" class="company-logo">
+                <h3>State Level Baseball Tournament 2024</h3>
+                <div class="card-meta">Visvesvaraya Technological University | July, 2024</div>
+                <p>Competed in the VTU Baseball Tournament, focusing on teamwork and strategy. This experience enhanced my leadership and time management skills.</p>
+            </div>
+            <div class="card">
+                <img src="softball.jpeg" alt="Softball Tournament" class="company-logo">
+                <h3>State Level Softball Tournament 2024</h3>
+                <div class="card-meta">Visvesvaraya Technological University | Feb, 2024</div>
+                <p>Participated in the VTU Softball Tournament, improving my communication and coordination skills while balancing sports and academics.</p>
+            </div>
+            <div class="card">
+                <img src="baseball.jpeg" alt="Baseball Tournament 2023" class="company-logo">
+                <h3>State Level Baseball Tournament 2023</h3>
+                <div class="card-meta">Visvesvaraya Technological University | July, 2023</div>
+                <p>Played in the VTU Baseball Tournament, developing teamwork and resilience while managing academic commitments.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2>Contact</h2>
+            <div class="contact-links">
+                <a href="https://linkedin.com/in/aditya-lin" target="_blank">LinkedIn</a>
+                <a href="https://github.com/aditya-raaj" target="_blank">GitHub</a>
+                <a href="mailto:itsadityaaraj@gmail.com">Email</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Aditya Raj. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            } else {
+                navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

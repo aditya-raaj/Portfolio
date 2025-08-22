@@ -8,14 +8,14 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap');
         
         :root {
-            --primary-bg: #0a0a0a;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --accent-color: #00d4ff;
-            --accent-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --text-primary: #ffffff;
-            --text-secondary: #a0a0a0;
-            --border-color: rgba(255, 255, 255, 0.1);
-            --glow: 0 0 20px rgba(0, 212, 255, 0.3);
+            --primary-bg: #0a0a15;
+            --card-bg: rgba(20, 25, 45, 0.8);
+            --accent-color: #085199;
+            --accent-gradient: linear-gradient(135deg, #085199 0%, #0aa4e9 100%);
+            --text-primary: #f8f8f8;
+            --text-secondary: #b8b8b8;
+            --border-color: rgba(255, 255, 255, 0.2);
+            --glow: 0 0 20px rgba(8, 81, 153, 0.3);
         }
 
         * {
@@ -40,15 +40,73 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 80%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
+                radial-gradient(circle at 20% 80%, rgba(8, 81, 153, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(10, 164, 233, 0.15) 0%, transparent 50%);
+            z-index: -2;
+            animation: backgroundShift 20s ease-in-out infinite alternate;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(45deg, rgba(20, 25, 45, 0.8) 0%, transparent 100%),
+                radial-gradient(circle at center, rgba(8, 81, 153, 0.1) 0%, transparent 70%);
             z-index: -1;
-            animation: backgroundShift 20s ease-in-out infinite;
+            animation: pulse 15s ease infinite alternate, hueRotate 30s linear infinite;
         }
 
         @keyframes backgroundShift {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            0% { 
+                transform: translate(-5%, -5%) scale(1);
+                background-position: 20% 80%, 80% 20%;
+            }
+            50% { 
+                transform: translate(5%, 5%) scale(1.05);
+                background-position: 30% 70%, 70% 30%;
+            }
+            100% { 
+                transform: translate(-5%, -5%) scale(1);
+                background-position: 20% 80%, 80% 20%;
+            }
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.8; }
+            50% { opacity: 0.4; }
+            100% { opacity: 0.8; }
+        }
+
+        @keyframes hueRotate {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 0.3; }
+            100% { transform: translateY(-100vh) translateX(20vw); opacity: 0; }
         }
 
         .container {
@@ -580,7 +638,7 @@
     <section id="experience" class="section">
         <div class="container">
             <h2>Experience</h2>
-            <div class="card">
+<!--             <div class="card">
                 <img src="pol.png" alt="Polaris Logo" class="company-logo">
                 <h3>Upcoming Associate Engineer at Polaris Inc</h3>
                 <div class="card-meta">Polaris Inc | Joining Year: 2026</div>
@@ -588,7 +646,7 @@
                 <div class="project-links">
                     <a href="https://www.polaris.com/en-us/" target="_blank">Link</a>
                 </div>
-            </div>
+            </div> -->
 
             <div class="card">
                 <img src="cdpg.jpg" alt="IISc Logo" class="company-logo">
@@ -756,7 +814,39 @@
         </div>
     </footer>
 
+    <div class="particles" id="particles"></div>
     <script>
+        // Create particles
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 30;
+        
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            // Random properties
+            const size = Math.random() * 5 + 1;
+            const posX = Math.random() * 100;
+            const delay = Math.random() * 15;
+            const duration = Math.random() * 20 + 10;
+            const blur = Math.random() * 3;
+            
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${posX}%`;
+            particle.style.bottom = `-${size}px`;
+            particle.style.animationDuration = `${duration}s`;
+            particle.style.animationDelay = `${delay}s`;
+            particle.style.filter = `blur(${blur}px)`;
+            particle.style.opacity = Math.random() * 0.5;
+            
+            // Random color from gradient
+            const colors = ['#085199', '#0aa4e9', '#72757e', '#2d7b9e'];
+            particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+            
+            particlesContainer.appendChild(particle);
+        }
+
         // Mobile menu toggle
         const menuToggle = document.querySelector('.menu-toggle');
         const navMenu = document.querySelector('.nav-menu');
